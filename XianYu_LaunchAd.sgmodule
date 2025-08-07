@@ -1,18 +1,21 @@
 #!name = 闲鱼启动广告屏蔽完整版
 #!desc = 拦截闲鱼开屏广告及配置接口，屏蔽广告内容和图片显示
 
-[Script]
-# 拦截闲鱼开屏广告配置接口，返回空广告数据
-http-response ^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.idle\.idleadv.* script-response-body reject-dict, tag=闲鱼开屏广告接口
+[Rule]
+# > 闲鱼启动广告相关域名，兜底拦截
+DOMAIN-SUFFIX,goofish.com,REJECT
+DOMAIN-SUFFIX,alicdn.com,REJECT
+DOMAIN-SUFFIX,taobao.com,REJECT
 
-# 拦截闲鱼备用开屏广告配置接口
-http-response ^https?:\/\/api\.aliscrapy\.com\/api\/launchad.* script-response-body reject-dict, tag=闲鱼开屏备用接口
+[URL Rewrite]
+# > 闲鱼广告上报接口
+^https?:\/\/acs\.m\.goofish\.com\/gw\/mtop\.idle\.idleadv\.app\.launch\.report\/1\.0 reject
 
-# 拦截闲鱼规则配置接口，可能影响开屏及其他广告策略
-http-response ^https?:\/\/acs\.m\.goofish\.com\/gw\/mtop\.taobao\.idle\.rule\.config\/.* script-response-body reject-dict, tag=闲鱼规则配置拦截
+# > 闲鱼开屏广告素材
+^https?:\/\/gw\.alicdn\.com\/.*\/splash\/screen reject
 
-# 广泛拦截可能的开屏广告图片资源，避免广告图展示
-http-response ^https?:\/\/.*\.alicdn\.com\/.*(launch|splash).*\.(jpg|png) script-response-body reject-200, tag=闲鱼启动广告图
+# > 闲鱼广告配置接口
+^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.idle\.idleadv\.launchad\.config\/.* reject
 
 [MITM]
-hostname = acs.m.taobao.com, api.aliscrapy.com, acs.m.goofish.com, *.alicdn.com
+hostname = acs.m.goofish.com, gw.alicdn.com, acs.m.taobao.com
