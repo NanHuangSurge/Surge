@@ -1,36 +1,32 @@
 #!name=简洁去开屏
-#!desc=拦截淘宝、闲鱼、知乎、京东、小红书、美团启动广告
+#!desc=拦截淘宝、京东、小红书、美团启动广告
 
 [Script]
 
-# 拦截淘宝开屏广告请求
-^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.alimama\.etao\.config\.query data="https://raw.githubusercontent.com/deezertidal/Surge_Module/master/files/reject-200.txt"
-^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.alibaba\.mos\.app\.homepage\.launch data="https://raw.githubusercontent.com/deezertidal/Surge_Module/master/files/reject-200.txt"
-^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.taobao\.wireless\.home\.splash\.awesome\.get data="https://raw.githubusercontent.com/deezertidal/Surge_Module/master/files/reject-200.txt"
-^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.film\.mtopadvertiseapi\.queryadvertise\/ data="https://raw.githubusercontent.com/deezertidal/Surge_Module/master/files/reject-200.txt"
-^https?:\/\/guide-acs\.m\.taobao\.com\/gw\/mtop\.taobao\.wireless\.home\.splash\.awesome\.get data="https://raw.githubusercontent.com/deezertidal/Surge_Module/master/files/reject-200.txt"
-^https?:\/\/guide-acs\.m\.taobao\.com\/gw\/mtop\.fc\.resource\.tacdata\.get data="https://raw.githubusercontent.com/deezertidal/Surge_Module/master/files/reject-200.txt"
+# 淘宝开屏广告拦截
+^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.alimama\.etao\.config\.query$ script-response-body reject-200,tag=Taobao Splash Ad
+^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.alibaba\.mos\.app\.homepage\.launch$ script-response-body reject-200,tag=Taobao Launch Ad
+^https?:\/\/guide-acs\.m\.taobao\.com\/gw\/mtop\.taobao\.wireless\.home\.splash\.awesome\.get$ script-response-body reject-200,tag=Taobao Splash Awesome
+^https?:\/\/guide-acs\.m\.taobao\.com\/gw\/mtop\.fc\.resource\.tacdata\.get$ script-response-body reject-200,tag=Taobao Splash Tacdata
 
-# 拦截闲鱼开屏广告请求
-^https?:\/\/gw\.alicdn\.com\/.*\/splash\/screen requires-body=true,script-response-body reject-200,tag=Xianyu Launch Ad
+# 京东开屏广告拦截
+^https?:\/\/tk\.lanjiyin\.com\.cn\/ad\/getAdList$ script-response-body reject-200,tag=JD Splash Ad
+^https?:\/\/rengine-platform\.llsapp\.com\/auth\/api\/remoteResource\/darwin$ script-response-body reject-200,tag=JD Remote Resource
+^https?:\/\/app-gateway\.leisuapi\.com\/v\d\/app\/mobile\/(banners|ads)$ script-response-body reject-200,tag=JD Mobile Banners
 
-# 拦截知乎开屏广告请求
-^https?:\/\/.*zhihu\.com\/api\/v4\/start_page\/ads data="https://raw.githubusercontent.com/deezertidal/Surge_Module/master/files/reject-200.txt"
+# 小红书开屏广告拦截
+^https?:\/\/.*mting\.info\/advert\/ClientAdvertList\.action$ script-response-body reject-200,tag=Xiaohongshu Advert
+^https?:\/\/.*mangaapi\.manhuaren\.\w{2,4}\/v\d\/public\/(getStartUpMessage|getStartPageAds|getShelfActivity)$ script-response-body reject-200,tag=Xiaohongshu Manga Start Up Ads
+^https?:\/\/.*mangaapi\.manhuaren\.\w{2,4}\/v\d\/ad$ script-response-body reject-200,tag=Xiaohongshu Manga Ads
 
-# 拦截京东开屏广告请求
-^https?:\/\/api\.m\.jd\.com\/client\.action\/getLaunchAd data="https://raw.githubusercontent.com/deezertidal/Surge_Module/master/files/reject-200.txt"
-
-# 拦截小红书开屏广告请求
-^https?:\/\/api\.xiaohongshu\.com\/fe_api\/splash\/get data="https://raw.githubusercontent.com/deezertidal/Surge_Module/master/files/reject-200.txt"
-
-# 拦截美团开屏广告请求
-^https?:\/\/peisongapi\.meituan\.com\/client\/getInitiateImage data="https://raw.githubusercontent.com/deezertidal/Surge_Module/master/files/reject-200.txt"
-^https?:\/\/img\.meituan\.net\/(adunion|display|midas)\/\w+\.(gif|jpg|jpg\.webp)$ data="https://raw.githubusercontent.com/deezertidal/Surge_Module/master/files/reject-200.txt"
-^https?:\/\/(s3plus|flowplus)\.meituan\.net\/v\d\/\w+\/linglong\/\w+\.(gif|jpg|mp4) data="https://raw.githubusercontent.com/deezertidal/Surge_Module/master/files/reject-200.txt"
-^https?:\/\/p\d\.meituan\.net\/(bizad|wmbanner)\/\w+\.jpg data="https://raw.githubusercontent.com/deezertidal/Surge_Module/master/files/reject-200.txt"
-^https?:\/\/p\d\.meituan\.net\/movie\/\w+\.jpg\?may_covertWebp data="https://raw.githubusercontent.com/deezertidal/Surge_Module/master/files/reject-200.txt"
-^https?:\/\/img\.meituan\.net\/(bizad|brandCpt)\/\w+\.(png|jpg) data="https://raw.githubusercontent.com/deezertidal/Surge_Module/master/files/reject-200.txt"
-^https?:\/\/.*\.meituan\.com\/api\/v\d\/(openscreen\?ad|appstatus\?ad|loadInfo\?|startpicture) data="https://raw.githubusercontent.com/deezertidal/Surge_Module/master/files/reject-200.txt"
+# 美团开屏广告拦截
+^https?:\/\/peisongapi\.meituan\.com\/client\/getInitiateImage$ script-response-body reject-200,tag=Meituan Initiate Image
+^https?:\/\/img\.meituan\.net\/(adunion|display|midas)\/\w+\.(gif|jpg|jpg\.webp)$ script-response-body reject-200,tag=Meituan Image Ads
+^https?:\/\/(s3plus|flowplus)\.meituan\.net\/v\d\/\w+\/linglong\/\w+\.(gif|jpg|mp4)$ script-response-body reject-200,tag=Meituan Linglong Media
+^https?:\/\/p\d\.meituan\.net\/(bizad|wmbanner)\/\w+\.jpg$ script-response-body reject-200,tag=Meituan Bizad Banner
+^https?:\/\/p\d\.meituan\.net\/movie\/\w+\.jpg\?may_covertWebp$ script-response-body reject-200,tag=Meituan Movie Ads
+^https?:\/\/img\.meituan\.net\/(bizad|brandCpt)\/\w+\.(png|jpg)$ script-response-body reject-200,tag=Meituan Brand Ads
+^https?:\/\/.*\.meituan\.com\/api\/v\d\/(openscreen\?ad|appstatus\?ad|loadInfo\?|startpicture)$ script-response-body reject-200,tag=Meituan Open Screen Ads
 
 [MITM]
-hostname = acs.m.taobao.com, gw.alicdn.com, *.zhihu.com, api.m.jd.com, api.xiaohongshu.com, peisongapi.meituan.com, img.meituan.net, s3plus.meituan.net, flowplus.meituan.net, p1.meituan.net, p0.meituan.net, *.meituan.com
+hostname = acs.m.taobao.com, guide-acs.m.taobao.com, tk.lanjiyin.com.cn, rengine-platform.llsapp.com, app-gateway.leisuapi.com, *.mting.info, *.meituan.net, peisongapi.meituan.com, *.meituan.com
