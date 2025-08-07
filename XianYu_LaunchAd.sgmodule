@@ -1,11 +1,13 @@
-#!name = 闲鱼去开屏广告
-#!desc = 屏蔽闲鱼启动时加载的广告图片，减少开屏广告展示
-#!author = 鱼鲨
-#!version = 1.0
+#!name = 闲鱼启动广告屏蔽（增强版）
+#!desc = 高效拦截闲鱼开屏广告配置接口 & 广告图片请求
 
 [Script]
-# 拦截闲鱼开屏广告图请求，返回空白响应
-http-response ^https?:\/\/ossgw\.alicdn\.com\/creatives-assets\/prod\/feupload\/user\/7lhfc\/.*\.jpg script-response-body reject-200, tag=闲鱼启动广告图
+# 拦截广告配置接口，返回空配置
+http-response ^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.idle\.idleadv.* script-response-body reject-dict, tag=闲鱼开屏广告接口
+http-response ^https?:\/\/api\.aliscrapy\.com\/api\/launchad.* script-response-body reject-dict, tag=闲鱼开屏ad接口备用
+
+# 拦截广告图片资源请求
+http-response ^https?:\/\/.*\.alicdn\.com\/.*(launch|splash).*\.(jpg|png) script-response-body reject-200, tag=闲鱼启动广告图
 
 [MITM]
-hostname = ossgw.alicdn.com
+hostname = acs.m.taobao.com, api.aliscrapy.com, *.alicdn.com
