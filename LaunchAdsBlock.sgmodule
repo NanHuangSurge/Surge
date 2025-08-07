@@ -6,7 +6,7 @@
 # 淘宝开屏广告
 http-response ^https?:\/\/gw\.alicdn\.com\/.*\/launch\.json requires-body=true,script-response-body reject-200,tag=Taobao Launch Ad
 
-# 咸鱼开屏广告
+# 闲鱼开屏广告
 http-response ^https?:\/\/gw\.alicdn\.com\/.*\/splash\/screen requires-body=true,script-response-body reject-200,tag=Xianyu Launch Ad
 
 # 知乎开屏广告
@@ -24,8 +24,3 @@ http-response ^https:\/\/.*\.meituan\.net\/v\d\/startup\/splash requires-body=tr
 [MITM]
 hostname = %APPEND%
 *.alicdn.com, api.zhihu.com, api.m.jd.com, edith.xiaohongshu.com, *.meituan.net
-
-
-
-
-
