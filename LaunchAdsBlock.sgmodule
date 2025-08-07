@@ -1,5 +1,5 @@
-#name = 简洁去开屏
-#description = 拦截淘宝、咸鱼、知乎等热门 App 的启动广告
+#!name=简洁去开屏
+#!desc=拦截淘宝、咸鱼、知乎、京东、小红书、美团启动广告
 
 [Script]
 # 淘宝开屏广告
@@ -23,5 +23,6 @@ http-response ^https:\/\/.*\.meituan\.net\/v\d\/startup\/splash requires-body=tr
 [MITM]
 hostname = %APPEND%
 *.alicdn.com, api.zhihu.com, api.m.jd.com, edith.xiaohongshu.com, *.meituan.net
+
 
 
