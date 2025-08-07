@@ -1,0 +1,11 @@
+#!name = 闲鱼去开屏广告
+#!desc = 屏蔽闲鱼启动时加载的广告图片，减少开屏广告展示
+#!author = 鱼鲨
+#!version = 1.0
+
+[Script]
+# 拦截闲鱼开屏广告图请求，返回空白响应
+http-response ^https?:\/\/ossgw\.alicdn\.com\/creatives-assets\/prod\/feupload\/user\/7lhfc\/.*\.jpg script-response-body reject-200, tag=闲鱼启动广告图
+
+[MITM]
+hostname = ossgw.alicdn.com
