@@ -1,0 +1,20 @@
+#!name = 高德地图启动广告拦截
+#!desc = 拦截高德地图App启动时的广告请求，提高启动速度和体验
+
+[Rule]
+# 拦截高德地图相关广告域名
+DOMAIN-SUFFIX,amap.com,REJECT
+DOMAIN-SUFFIX,alicdn.com,REJECT
+
+[URL Rewrite]
+# 拦截高德地图开屏广告素材请求
+^https?:\/\/.*\.amap\.com\/ws\/mobile\/splash\/screen reject
+
+# 拦截高德地图广告配置接口请求
+^https?:\/\/.*\.amap\.com\/ws\/promotion\/.* reject
+
+# 拦截高德地图开屏广告上报请求
+^https?:\/\/.*\.amap\.com\/ws\/faas\/.* reject
+
+[MITM]
+hostname = *.amap.com
