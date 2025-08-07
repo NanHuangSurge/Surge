@@ -1,9 +1,0 @@
-#!name=Xianyu Ad Blocker
-#!desc=拦截闲鱼开屏广告上报请求，去除启动广告行为
-
-[Script]
-# > 拦截闲鱼开屏广告上报请求
-http-request ^https?:\/\/acs\.m\.goofish\.com\/gw\/mtop\.idle\.idleadv\.app\.launch\.report\/1\.0 script-response-body reject-200, tag=Xianyu Launch Ad
-
-[MITM]
-hostname = acs.m.goofish.com
