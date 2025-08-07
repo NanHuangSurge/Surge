@@ -4,13 +4,18 @@
 
 [Script]
 # 淘宝开屏广告
-http-response ^https?:\/\/gw\.alicdn\.com\/.*\/launch\.json requires-body=true,script-response-body reject-200,tag=Taobao Launch Ad
+http-response ^https?:\/\/gw\.alicdn\.com\/.+\/launch\.json requires-body=true,script-response-body reject-200,tag=Taobao Launch Ad
 
-# 闲鱼开屏广告
-http-response ^https?:\/\/gw\.alicdn\.com\/.*\/splash\/screen requires-body=true,script-response-body reject-200,tag=Xianyu Launch Ad
+# 闲鱼开屏广告（增强）
+http-response ^https?:\/\/gw\.alicdn\.com\/.+\/splash\/screen requires-body=true,script-response-body reject-200,tag=Xianyu Launch Ad
+http-response ^https?:\/\/gw\.alicdn\.com\/.+\/(splash|launch|startup) requires-body=true,script-response-body reject-200,tag=Xianyu Launch Ad
+http-response ^https?:\/\/app\.xianyu\.alibaba\.com\/.+\/startup requires-body=true,script-response-body reject-200,tag=Xianyu Launch Ad
 
-# 知乎开屏广告
+# 知乎开屏广告（增强）
 http-response ^https:\/\/api\.zhihu\.com\/commercial_api\/launch_v2 requires-body=true,script-response-body reject-200,tag=Zhihu Launch Ad
+http-response ^https:\/\/api\.zhihu\.com\/commercial_api\/(launch|launch_v2|launch_v1|splash) requires-body=true,script-response-body reject-200,tag=Zhihu Launch Ad
+http-response ^https:\/\/api\.zhihu\.com\/topstory\/launch requires-body=true,script-response-body reject-200,tag=Zhihu Launch Ad
+http-response ^https:\/\/api\.zhihu\.com\/real_time\/launch requires-body=true,script-response-body reject-200,tag=Zhihu Launch Ad
 
 # 京东开屏广告
 http-response ^https:\/\/api\.m\.jd\.com\/client\.action\?functionId=start requires-body=true,script-response-body reject-200,tag=JD Launch Ad
@@ -24,4 +29,3 @@ http-response ^https:\/\/.*\.meituan\.net\/v\d\/startup\/splash requires-body=tr
 [MITM]
 hostname = %APPEND%
 *.alicdn.com, api.zhihu.com, api.m.jd.com, edith.xiaohongshu.com, *.meituan.net
-
