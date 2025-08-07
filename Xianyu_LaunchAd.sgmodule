@@ -1,0 +1,13 @@
+#!name = Xianyu Launch Ad Block
+#!desc = Block Xianyu app splash/launch screen ads
+
+[Script]
+
+# 知乎开屏广告拦截（config接口）
+http-response ^https:\/\/open\.kuaishouzt\.com\/rest\/zt\/appsupport\/configs requires-body=1,script-response-body reject-200,tag=Zhihu Launch Ad 1
+
+# 知乎开屏广告拦截（real_time_launch_v2接口）
+http-response ^https:\/\/api\.zhihu\.com\/commercial_api\/real_time_launch_v2 requires-body=1,script-response-body reject-200,tag=Zhihu Launch Ad 2
+
+[MITM]
+hostname = open.kuaishouzt.com, api.zhihu.com
