@@ -1,0 +1,9 @@
+#!name = Safari 浏览器分流规则
+#!desc = 匹配苹果 Safari 浏览器的网络请求，方便自定义走代理或直连
+#!author = ChatGPT
+#!version = 1.0
+
+[Rule]
+USER-AGENT,AppleWebKit*
+PROCESS-NAME,com.apple.mobilesafari
+PROCESS-NAME,Safari
