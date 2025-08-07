@@ -1,31 +1,29 @@
 #!name=简洁去开屏
 #!desc=拦截淘宝、闲鱼、知乎、京东、小红书、美团启动广告
 
-
 [Script]
-# 淘宝开屏广告
-http-response ^https?:\/\/gw\.alicdn\.com\/.+\/launch\.json requires-body=true,script-response-body reject-200,tag=Taobao Launch Ad
+# 淘宝 - 启动广告跳转脚本
+http://amdc.m.taobao.com script-response-body https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/amdc.js
 
-# 闲鱼开屏广告（增强）
-http-response ^https?:\/\/gw\.alicdn\.com\/.+\/splash\/screen requires-body=true,script-response-body reject-200,tag=Xianyu Launch Ad
-http-response ^https?:\/\/gw\.alicdn\.com\/.+\/(splash|launch|startup) requires-body=true,script-response-body reject-200,tag=Xianyu Launch Ad
-http-response ^https?:\/\/app\.xianyu\.alibaba\.com\/.+\/startup requires-body=true,script-response-body reject-200,tag=Xianyu Launch Ad
+[URL Rewrite]
+# 淘宝 - 启动广告接口拦截
+^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.alibaba\.advertisementservice\.getadv\/ reject
+^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.alibaba\.cbu\.app\.homepage\.startup reject
 
-# 知乎开屏广告（增强）
-http-response ^https:\/\/api\.zhihu\.com\/commercial_api\/launch_v2 requires-body=true,script-response-body reject-200,tag=Zhihu Launch Ad
-http-response ^https:\/\/api\.zhihu\.com\/commercial_api\/(launch|launch_v2|launch_v1|splash) requires-body=true,script-response-body reject-200,tag=Zhihu Launch Ad
-http-response ^https:\/\/api\.zhihu\.com\/topstory\/launch requires-body=true,script-response-body reject-200,tag=Zhihu Launch Ad
-http-response ^https:\/\/api\.zhihu\.com\/real_time\/launch requires-body=true,script-response-body reject-200,tag=Zhihu Launch Ad
+# 闲鱼 - 通常属于淘宝生态，以下以常见启动广告 URL 为例（如文件中无闲鱼规则请自行调整）
+^https?:\/\/gw\.alicdn\.com\/.*\/splash\/screen reject
 
-# 京东开屏广告
-http-response ^https:\/\/api\.m\.jd\.com\/client\.action\?functionId=start requires-body=true,script-response-body reject-200,tag=JD Launch Ad
+# 知乎 - 外部引用脚本（由 StartUpAds.conf 注释中提供）
+^https?:\/\/\S+\/Zhihu\.Adblock\.js reject
 
-# 小红书开屏广告
-http-response ^https:\/\/edith\.xiaohongshu\.com\/api\/splash\/ads requires-body=true,script-response-body reject-200,tag=Xiaohongshu Launch Ad
+# 京东 - 常见启动接口拦截（根据惯例手动添加）
+^https?:\/\/api\.m\.jd\.com\/client\.action\?functionId=start reject
 
-# 美团开屏广告
-http-response ^https:\/\/.*\.meituan\.net\/v\d\/startup\/splash requires-body=true,script-response-body reject-200,tag=Meituan Launch Ad
+# 小红书 - 启动广告净化（来源于注释中引用）
+^https?:\/\/\S+\/XiaoHongShuAds\.conf reject
+
+# 美团 - 一般启动广告接口（示例式添加）
+^https?:\/\/api\.meituan\.com\/advertisement\/start.* reject
 
 [MITM]
-hostname = %APPEND%
-*.alicdn.com, api.zhihu.com, api.m.jd.com, edith.xiaohongshu.com, *.meituan.net
+hostname = acs.m.taobao.com, amdc.m.taobao.com, gw.alicdn.com, api.m.jd.com, api.meituan.com
