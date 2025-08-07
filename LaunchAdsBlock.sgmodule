@@ -1,5 +1,5 @@
 #!name=简洁去开屏
-#!desc=拦截淘宝、京东、小红书、知乎、美团启动广告
+#!desc=拦截淘宝、京东、小红书、美团启动广告
 
 [Script]
 
@@ -28,10 +28,5 @@
 ^https?:\/\/img\.meituan\.net\/(bizad|brandCpt)\/\w+\.(png|jpg)$ script-response-body reject-200,tag=Meituan Brand Ads
 ^https?:\/\/.*\.meituan\.com\/api\/v\d\/(openscreen\?ad|appstatus\?ad|loadInfo\?|startpicture)$ script-response-body reject-200,tag=Meituan Open Screen Ads
 
-# 知乎开屏广告拦截
-^https?:\/\/.*\.zhihu\.com\/api\/v4\/launch_ad$ script-response-body reject-200,tag=Zhihu Launch Ad
-^https?:\/\/.*\.zhihu\.com\/api\/v4\/launch_splash$ script-response-body reject-200,tag=Zhihu Launch Splash
-^https?:\/\/.*\.zhihu\.com\/api\/v4\/(startpage|startup)$ script-response-body reject-200,tag=Zhihu Start Page
-
 [MITM]
-hostname = acs.m.taobao.com, guide-acs.m.taobao.com, tk.lanjiyin.com.cn, rengine-platform.llsapp.com, app-gateway.leisuapi.com, *.mting.info, *.meituan.net, peisongapi.meituan.com, *.meituan.com, *.zhihu.com
+hostname = acs.m.taobao.com, guide-acs.m.taobao.com, tk.lanjiyin.com.cn, rengine-platform.llsapp.com, app-gateway.leisuapi.com, *.mting.info, *.meituan.net, peisongapi.meituan.com, *.meituan.com
