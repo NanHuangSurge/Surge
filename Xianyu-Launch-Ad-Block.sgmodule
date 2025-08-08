@@ -1,0 +1,35 @@
+#!name=闲鱼去开屏
+#!desc=拦截闲鱼开屏页面广告
+
+[General]
+module-name = Xianyu Launch Ad Block
+version = 2025.08.08
+description = Block Xianyu startup/splash ads (requires MITM enabled).
+
+[Script]
+# —— 启动上报接口拦截 ——
+http-request ^https?:\/\/acs\.m\.goofish\.com\/gw\/mtop\.idle\.idleadv\.app\.launch\.report\/.* reject-200, tag=闲鱼-启动上报
+http-request ^https?:\/\/.*\.goofish\.com\/.*launch.*report.* reject-200, tag=闲鱼-启动上报-泛匹配
+http-request ^https?:\/\/.*\.goofish\.com\/.*report\/.* reject-200, tag=闲鱼-通用上报
+
+# —— 开屏图片拦截 ——
+http-response ^https?:\/\/gw\.alicdn\.com\/.*\/splash\/screen.* requires-body=true, reject-200, tag=闲鱼-开屏图片
+http-response ^https?:\/\/gtd\.alicdn\.com\/.*\/splash.* requires-body=true, reject-200, tag=闲鱼-开屏图片-备用
+http-response ^https?:\/\/.*\.alicdn\.com\/.*splash.* requires-body=true, reject-200, tag=闲鱼-开屏图片-泛匹配
+
+# —— 开屏配置/广告配置拦截 ——
+http-response ^https?:\/\/.*\/(launch|startup|splash|splash_ad|splashconfig|start_up).* requires-body=true, reject-200, tag=闲鱼-开屏配置
+http-response ^https?:\/\/.*\/(idleadv|idleadv_cfg|idle_adv).* requires-body=true, reject-200, tag=闲鱼-idleadv配置
+
+# —— SDK / 上报统计拦截 ——
+http-request ^https?:\/\/.*(splashreport|adreport|openscreen|startreport).* reject-200, tag=闲鱼-开屏统计
+http-request ^https?:\/\/.*(report|reporting|stat).*\/splash.* reject-200, tag=闲鱼-开屏统计-泛匹配
+
+[MITM]
+hostname = %APPEND%
+acs.m.goofish.com
+api.goofish.com
+*.goofish.com
+gw.alicdn.com
+gtd.alicdn.com
+*.alicdn.com
