@@ -1,21 +1,25 @@
-#!name = 闲鱼启动广告屏蔽完整版
-#!desc = 拦截闲鱼开屏广告及配置接口，屏蔽广告内容和图片显示
+# Xianyu-Launch-Block-No-MITM.sgmodule
+# 说明：无需 MITM，无需额外配置，拦截闲鱼启动开屏广告相关请求。
+
+[General]
+module-name = Xianyu Launch Ad Block (No-MITM)
+version = 2025.08.08
+description = Block Xianyu startup/splash ads without needing MITM.
 
 [Rule]
-# > 闲鱼启动广告相关域名，兜底拦截
-DOMAIN-SUFFIX,goofish.com,REJECT
-DOMAIN-SUFFIX,alicdn.com,REJECT
-DOMAIN-SUFFIX,taobao.com,REJECT
+# 拦截启动上报接口
+^https?://.*goofish\.com/.*/launch.*report.*                    reject-200
+^https?://.*goofish\.com/.*/report/.*                           reject-200
 
-[URL Rewrite]
-# > 闲鱼广告上报接口
-^https?:\/\/acs\.m\.goofish\.com\/gw\/mtop\.idle\.idleadv\.app\.launch\.report\/1\.0 reject
+# 拦截开屏资源接口（图片/配置）
+^https?://.*alicdn\.com/.*/splash.*                             reject-200
+^https?://.*alicdn\.com/.*/startup.*                            reject-200
+^https?://.*alicdn\.com/.*/launch.*                             reject-200
+^https?://.*alicdn\.com/.*/ad.*                                reject-200
+^https?://.*alicdn\.com/.*/splashconfig.*                       reject-200
 
-# > 闲鱼开屏广告素材
-^https?:\/\/gw\.alicdn\.com\/.*\/splash\/screen reject
-
-# > 闲鱼广告配置接口
-^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.idle\.idleadv\.launchad\.config\/.* reject
-
-[MITM]
-hostname = acs.m.goofish.com, gw.alicdn.com, acs.m.taobao.com
+# 拦截统计/上报类接口
+^https?://.*splashreport.*                                     reject-200
+^https?://.*openscreen.*                                       reject-200
+^https?://.*report.*splash.*                                   reject-200
+^https?://.*stat.*splash.*                                     reject-200
